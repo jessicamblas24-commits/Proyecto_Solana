@@ -1,0 +1,33 @@
+:root{
+  --ink:#16222b; --fondo:#e8eeeb; --papel:#fff; --linea:#c4d0ca; --suave:#51615a;
+  --pend:#8a5a00; --curso:#1d5fa8; --hecha:#17725d; --rojo:#a8324b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--ink);font:400 16px/1.5 "Figtree",system-ui,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 64px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+h1{font:800 2.3rem/1.05 "Fraunces",serif;margin:0;letter-spacing:-.02em}
+h2{font:600 1.1rem "Fraunces",serif;margin:0 0 10px}
+h3{font:600 1rem "Figtree",sans-serif;margin:0}
+.aviso,.meta{color:var(--suave);font-size:.92rem;margin:8px 0}
+code{font-size:.82rem;word-break:break-all}
+.barra{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;background:var(--papel);border:1px solid var(--linea);padding:12px;margin:12px 0}
+label{display:flex;flex-direction:column;font-size:.85rem;gap:4px;font-weight:500}
+label.ancha{flex:1 1 220px}label.check{flex-direction:row;align-items:center;font-weight:400;flex:1 1 260px}
+input:not([type=checkbox]),select{font:inherit;padding:7px 9px;border:1px solid var(--linea);background:#fff;min-width:0}
+button{font:500 .88rem "Figtree",sans-serif;padding:7px 13px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+button.sec{background:#fff;color:var(--ink)}
+button.peligro{background:#fff;color:var(--rojo);border-color:var(--rojo)}
+button:disabled{opacity:.4;cursor:not-allowed}
+:focus-visible{outline:3px solid #3b6cf6;outline-offset:2px}
+.columnas{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0;align-items:start}
+.col{background:rgba(255,255,255,.55);border-top:5px solid var(--ink);padding:12px;min-height:120px}
+.col h2 span{font:500 .85rem "Figtree",sans-serif;color:var(--suave);margin-left:4px}
+.col.pendiente{border-top-color:var(--pend)}.col.enCurso{border-top-color:var(--curso)}.col.hecha{border-top-color:var(--hecha)}
+.tarjeta{background:var(--papel);border:1px solid var(--linea);padding:10px;margin-bottom:10px}
+.detalle{font-size:.82rem;color:var(--suave);margin:2px 0 8px}
+.acciones{display:flex;gap:6px;flex-wrap:wrap}
+.registro{margin-top:28px}.registro ul{list-style:none;padding:0;margin:0}
+.registro li{padding:6px 0;border-bottom:1px solid var(--linea);font-size:.9rem;word-break:break-word}
+.registro .ok{color:var(--hecha)}.registro .error{color:var(--rojo)}
+@media(max-width:760px){.columnas{grid-template-columns:1fr}}

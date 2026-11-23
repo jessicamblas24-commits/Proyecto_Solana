@@ -1,0 +1,374 @@
+{
+  "address": "EEuQpJC3tm46dGDMURusEsSdLwhQXtAPRHTmTCiHvr7f",
+  "metadata": {
+    "name": "tareas",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Tablero de tareas con asignación y cierre condicionado"
+  },
+  "instructions": [
+    {
+      "name": "crear_tablero",
+      "discriminator": [
+        22,
+        18,
+        52,
+        165,
+        128,
+        243,
+        243,
+        126
+      ],
+      "accounts": [
+        {
+          "name": "tablero",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "nombre",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "crear_tarea",
+      "discriminator": [
+        96,
+        196,
+        190,
+        142,
+        25,
+        228,
+        92,
+        197
+      ],
+      "accounts": [
+        {
+          "name": "tablero",
+          "writable": true
+        },
+        {
+          "name": "tarea",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "id",
+          "type": "u32"
+        },
+        {
+          "name": "titulo",
+          "type": "string"
+        },
+        {
+          "name": "prioridad",
+          "type": "u8"
+        },
+        {
+          "name": "asignado",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "reasignar_tarea",
+      "discriminator": [
+        187,
+        160,
+        62,
+        181,
+        62,
+        221,
+        161,
+        29
+      ],
+      "accounts": [
+        {
+          "name": "tablero"
+        },
+        {
+          "name": "tarea",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "nuevo",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "avanzar_tarea",
+      "discriminator": [
+        235,
+        132,
+        142,
+        166,
+        58,
+        187,
+        0,
+        133
+      ],
+      "accounts": [
+        {
+          "name": "tablero"
+        },
+        {
+          "name": "tarea",
+          "writable": true
+        },
+        {
+          "name": "firmante",
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "cerrar_tarea",
+      "discriminator": [
+        50,
+        160,
+        191,
+        107,
+        0,
+        250,
+        178,
+        1
+      ],
+      "accounts": [
+        {
+          "name": "tablero",
+          "writable": true
+        },
+        {
+          "name": "tarea",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "cerrar_tablero",
+      "discriminator": [
+        116,
+        144,
+        6,
+        14,
+        12,
+        227,
+        49,
+        206
+      ],
+      "accounts": [
+        {
+          "name": "tablero",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Tablero",
+      "discriminator": [
+        146,
+        63,
+        205,
+        39,
+        96,
+        46,
+        141,
+        196
+      ]
+    },
+    {
+      "name": "Tarea",
+      "discriminator": [
+        21,
+        189,
+        56,
+        58,
+        86,
+        108,
+        182,
+        54
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "NombreInvalido",
+      "msg": "Nombre vacío o de más de 32 bytes"
+    },
+    {
+      "code": 6001,
+      "name": "TituloInvalido",
+      "msg": "Título vacío o de más de 64 bytes"
+    },
+    {
+      "code": 6002,
+      "name": "PrioridadInvalida",
+      "msg": "Prioridad inválida (1 = alta, 2 = media, 3 = baja)"
+    },
+    {
+      "code": 6003,
+      "name": "IdInvalido",
+      "msg": "El id no es el siguiente del tablero"
+    },
+    {
+      "code": 6004,
+      "name": "NoAutorizado",
+      "msg": "No tienes permiso para esta operación"
+    },
+    {
+      "code": 6005,
+      "name": "TransicionInvalida",
+      "msg": "Transición de estado no permitida"
+    },
+    {
+      "code": 6006,
+      "name": "EstadoNoHecha",
+      "msg": "Solo se puede eliminar una tarea hecha"
+    },
+    {
+      "code": 6007,
+      "name": "TableroConTareas",
+      "msg": "El tablero aún tiene tareas; elimínalas antes"
+    },
+    {
+      "code": 6008,
+      "name": "Desbordamiento",
+      "msg": "Desbordamiento aritmético"
+    }
+  ],
+  "types": [
+    {
+      "name": "Tablero",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "nombre",
+            "type": "string"
+          },
+          {
+            "name": "siguiente_id",
+            "type": "u32"
+          },
+          {
+            "name": "tareas_abiertas",
+            "type": "u16"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Tarea",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "tablero",
+            "type": "pubkey"
+          },
+          {
+            "name": "id",
+            "type": "u32"
+          },
+          {
+            "name": "titulo",
+            "type": "string"
+          },
+          {
+            "name": "asignado",
+            "type": "pubkey"
+          },
+          {
+            "name": "prioridad",
+            "type": "u8"
+          },
+          {
+            "name": "estado",
+            "type": {
+              "defined": {
+                "name": "EstadoTarea"
+              }
+            }
+          },
+          {
+            "name": "creada_en",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EstadoTarea",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Pendiente"
+          },
+          {
+            "name": "EnCurso"
+          },
+          {
+            "name": "Hecha"
+          }
+        ]
+      }
+    }
+  ]
+}

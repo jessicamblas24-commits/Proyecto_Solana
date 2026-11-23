@@ -1,0 +1,20 @@
+[package]
+name = "tareas"
+version = "0.1.0"
+description = "Tablero de tareas con asignación y cierre condicionado"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "tareas"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = "0.31.1"
